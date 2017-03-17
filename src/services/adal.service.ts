@@ -111,7 +111,7 @@ export class AdalService {
     }
 
     public getUser(): Observable<adal.User> {
-        return Observable.bindCallback((cb: (u: adal.User) => void) => {
+        return Observable.bindCallback((cb: (u: adal.User) => adal.User) => {
             this.adalContext.getUser(function (error: string, user: adal.User) {
                 if (error) {
                     this.adalContext.error('Error when getting user', error);
