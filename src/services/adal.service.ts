@@ -1,7 +1,7 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import * as adalLib from 'adal-angular';
-import {OAuthData} from "./oauthdata.model";
+import { OAuthData } from "./oauthdata.model";
 
 @Injectable()
 export class AdalService {
@@ -65,25 +65,20 @@ export class AdalService {
             this.adalContext.saveTokenFromHash(requestInfo);
             if (requestInfo.requestType === this.adalContext.REQUEST_TYPE.LOGIN) {
                 this.updateDataFromCache(this.adalContext.config.loginResource);
-                
+
             } else if (requestInfo.requestType === this.adalContext.REQUEST_TYPE.RENEW_TOKEN) {
                 this.adalContext.callback = window.parent.callBackMappedToRenewStates[requestInfo.stateResponse];
             }
 
-            if(requestInfo.stateMatch)
-            {
-                if (typeof this.adalContext.callback === 'function')
-                {
-                    if (requestInfo.requestType === this.adalContext.REQUEST_TYPE.RENEW_TOKEN) 
-                    {
+            if (requestInfo.stateMatch) {
+                if (typeof this.adalContext.callback === 'function') {
+                    if (requestInfo.requestType === this.adalContext.REQUEST_TYPE.RENEW_TOKEN) {
                         // Idtoken or Accestoken can be renewed
-                        if (requestInfo.parameters['access_token']) 
-                        {
+                        if (requestInfo.parameters['access_token']) {
                             this.adalContext.callback(this.adalContext._getItem(this.adalContext.CONSTANTS.STORAGE.ERROR_DESCRIPTION)
-                                                        , requestInfo.parameters['access_token']);
+                                , requestInfo.parameters['access_token']);
                         }
-                        else if (requestInfo.parameters['error']) 
-                        {
+                        else if (requestInfo.parameters['error']) {
                             this.adalContext.callback(this.adalContext._getItem(this.adalContext.CONSTANTS.STORAGE.ERROR_DESCRIPTION), null);
                             this.adalContext._renewFailed = true;
                         }
@@ -109,9 +104,9 @@ export class AdalService {
                     cb(tokenOut);
                 }
             });
-        }, function(token: string){
-            if(!token && errorMessage)
-                throw(errorMessage);
+        }, function (token: string) {
+            if (!token && errorMessage)
+                throw (errorMessage);
         })();
     }
 
@@ -144,23 +139,24 @@ export class AdalService {
         this.adalContext.verbose(message);
     }
 
-    public GetResourceForEndpoint(url: string): string
-    {
+    public GetResourceForEndpoint(url: string): string {
         return this.adalContext.getResourceForEndpoint(url);
+    }
+
+    public refreshDataFromCache() { 
+        this.updateDataFromCache(this.adalContext.config.loginResource); 
     }
 
     private updateDataFromCache(resource: string): void {
         let token = this.adalContext.getCachedToken(resource);
         this.oauthData.isAuthenticated = token !== null && token.length > 0;
         var user = this.adalContext.getCachedUser() || { userName: '', profile: undefined };
-        if(user)
-        {
+        if (user) {
             this.oauthData.userName = user.userName;
             this.oauthData.profile = user.profile;
             this.oauthData.loginError = this.adalContext.getLoginError();
         }
-        else
-        {
+        else {
             this.oauthData.userName = '';
             this.oauthData.profile = {};
             this.oauthData.loginError = '';
