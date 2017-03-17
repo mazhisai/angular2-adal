@@ -6,5 +6,4 @@ docs_generated
 src/**/*.js
 src/**/*.map
 .tmp
-dist
 test-built
