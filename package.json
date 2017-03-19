@@ -1,10 +1,10 @@
 {
-  "name": "ng2-adal",
-  "version": "0.2.8",
+  "name": "ng2-adal-popup-fork",
+  "version": "0.0.1",
   "description": "Use Azure AD Library - ADAL in Angular 2",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sureshchahal/angular2-adal.git"
+    "url": "git+https://github.com/mazhisai/angular2-adal.git"
   },
   "keywords": [
     "angular2",
@@ -15,9 +15,10 @@
     "angular2-adal",
     "ng2-adal",
     "adal-angular2",
-    "adal-ng2"
+    "adal-ng2",
+    "pop-up"
   ],
-  "author": "Suresh Chahal",
+  "author": "Murali",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/sureshchahal/angular2-adal/issues"
