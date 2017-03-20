@@ -1,6 +1,6 @@
 {
   "name": "ng2-adal-popup-fork",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Use Azure AD Library - ADAL in Angular 2",
   "repository": {
     "type": "git",
